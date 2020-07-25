@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="login_logo_width">200dp</dimen>
+    <dimen name="login_logo_height">200dp</dimen>
+    <dimen name="sing_in_text_size">22sp</dimen>
+    <dimen name="login_username_width">300dp</dimen>
+    <dimen name="login_username_height">60dp</dimen>
+    <dimen name="login_email_text_size">20sp</dimen>
+    <dimen name="login_password_width">300dp</dimen>
+    <dimen name="login_password_height">60dp</dimen>
+    <dimen name="login_password_text_size">20sp</dimen>
+    <dimen name="login_no_account_text_size">16sp</dimen>
+    <dimen name="login_background_width">530dp</dimen>
+    <dimen name="login_background_height">500dp</dimen>
+
+    <dimen name="drug_item_height">160dp</dimen>
+</resources>
