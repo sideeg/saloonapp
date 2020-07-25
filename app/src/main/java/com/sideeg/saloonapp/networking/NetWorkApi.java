@@ -18,14 +18,14 @@ public interface NetWorkApi {
 
 
     @FormUrlEncoded
-    @POST("pharmacy/login")
-    Call<LoginResponse> pharmacyLogin(@Field("email") String email,
+    @POST("saloons/login")
+    Call<LoginResponse> pharmacyLogin(@Field("name") String name,
                                       @Field("password") String password
     );
 
     @Multipart
-    @POST("pharmacy/register")
-    Call<RegisterResponse> registrationPharmacy(
+    @POST("saloons/register")
+    Call<LoginResponse> registrationPharmacy(
                                                 @Part("user_phone") String phone,
                                                 @Part("user_name") String user_name,
                                                 @Part("user_email") String email,

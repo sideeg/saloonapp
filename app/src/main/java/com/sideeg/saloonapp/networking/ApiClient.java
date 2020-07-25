@@ -31,7 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClient  {
 
     private static final String TAG = "ServiceGenerator";
-    public static final String BASE_URL = "https://orderpharma.net/api/";
+    public static final String BASE_URL = "https://rocky-lowlands-74776.herokuapp.com/api/";
     public static final String HEADER_CACHE_CONTROL = "Cache-Control";
     public static final String HEADER_PRAGMA = "Pragma";
 
@@ -63,7 +63,7 @@ public class ApiClient  {
                     @Override
                     public Response intercept(Chain chain) throws IOException {
                         Request newRequest  = chain.request().newBuilder()
-                                .addHeader("Authorization" , "Bearer " + LocalSession.getToken())
+                                .addHeader("Authorization" , "Bearer " + LocalSession.getPhotoIdFullPath())
                                 .build();
                         return chain.proceed(newRequest);
                     }
@@ -73,10 +73,9 @@ public class ApiClient  {
                 .writeTimeout(30, TimeUnit.MINUTES)
                 .addInterceptor(logging)
                 .protocols(protocols)
-                .cache(cache())
                 .addInterceptor(httpLoggingInterceptor()) // used if network off OR on
-                .addNetworkInterceptor(networkInterceptor()) // only used when network is on
-                .addInterceptor(offlineInterceptor())
+                 // only used when network is on
+
                 //.connectionSpecs(Arrays.asList(ConnectionSpec.COMPATIBLE_TLS))
                 .build();
 
@@ -98,33 +97,8 @@ public class ApiClient  {
 
     }
 
-    private static Cache cache(){
-        return new Cache(new File(MyApplication.getInstance().getCacheDir(),"someIdentifier"), cacheSize);
-    }
-    private static Interceptor offlineInterceptor() {
-        return new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Log.d(TAG, "offline interceptor: called.");
-                Request request = chain.request();
 
-                // prevent caching when network is on. For that we use the "networkInterceptor"
-                if (!MyApplication.hasNetwork()) {
-                    CacheControl cacheControl = new CacheControl.Builder()
-                            .maxStale(7, TimeUnit.DAYS)
-                            .build();
 
-                    request = request.newBuilder()
-                            .removeHeader(HEADER_PRAGMA)
-                            .removeHeader(HEADER_CACHE_CONTROL)
-                            .cacheControl(cacheControl)
-                            .build();
-                }
-
-                return chain.proceed(request);
-            }
-        };
-    }
 
     /**
      * This interceptor will be called ONLY if the network is available

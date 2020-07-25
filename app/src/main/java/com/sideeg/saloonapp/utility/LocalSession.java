@@ -6,103 +6,56 @@ import android.content.SharedPreferences;
 public class LocalSession {
 
     private static final String PREF_NAME = "Driver SettingsData";
-    private static final String pharmacyId = "pharmacy_id";
-    private static final String pharmacyName = "pharmacyName";
-    private static final String pharmacyPhone = "pharmacyPhone";
+    private static final String ID = "id";
+    private static final String NAME = "Name";
+    private static final String PHONE = "Phone";
     private static final String clientEmail = "clientEmail";
     private static SharedPreferences mPreferences;
     private static SharedPreferences.Editor editor;
     //keys
-    private static final String token = "api_token";
+    private static final String PHOTO_ID_FULL_PATH = "photo_id_full_path";
     private static final String isSessionCreated = "isSessionCreated";
-    private static final String isFcmSaved ="isFcmSaved";
-    private static final String isProfileCreated = "isProfileCreated";
-    private static final String personalPhotoPath = "personalPhotoPath";
     private static final String lat = "lat";
     private static final String lng = "lng";
     private static final String user_name = "user_name";
-    private static final String license_no = "license_no";
-    private static final String pharmacyStatus = "status";
-    public static final String phoneOtp = "otp";
-    private static final String fcmToken = "token";
-    private static final String orderId ="order_id";
-    private static final String isLastOrderIdSaved ="isLastOrderIdSaved";
-    private static final String ORDER_STATUS = "status";
-    public void createSession(Boolean isSessionCreated,String pharmacyName,String phone,String userName, String clientEmail, String pharmacyId, String clintToken,String licenseNo,String lat,String lng
-    ,String status) {
+    private static final String REGSTRATION_IMAGE_FULL_PATH = "commerical_regstration_image_full_path";
+    private static final String SALOON_LOGO_FULL_PATH = "saloon_logo_full_path";
+
+
+    public void createSession(Boolean isSessionCreated,String phone,String userName, String saloonEmail, String Id, String photo_id_full_path,String commerical_regstration_image_full_path,String lat,String lng
+    ,String saloon_logo_full_path) {
         editor.putBoolean(LocalSession.isSessionCreated, isSessionCreated);
-        editor.putString(LocalSession.pharmacyName,pharmacyName);
         editor.putString(LocalSession.user_name,userName);
-        editor.putString(LocalSession.pharmacyPhone,phone);
-        editor.putString(LocalSession.clientEmail,clientEmail);
-        editor.putString(LocalSession.pharmacyId, pharmacyId);
-        editor.putString(LocalSession.token, clintToken);
-        editor.putString(LocalSession.license_no, licenseNo);
+        editor.putString(LocalSession.PHONE,phone);
+        editor.putString(LocalSession.clientEmail,saloonEmail);
+        editor.putString(LocalSession.ID, Id);
+        editor.putString(LocalSession.PHOTO_ID_FULL_PATH, photo_id_full_path);
+        editor.putString(LocalSession.REGSTRATION_IMAGE_FULL_PATH, commerical_regstration_image_full_path);
         editor.putString(LocalSession.lat, lat);
         editor.putString(LocalSession.lng, lng);
-        editor.putString(LocalSession.pharmacyStatus, status);
-        editor.apply();
-        editor.commit();
-    }
-    public void createProfile(Boolean isProfileCreated,String pharmacyName,String phone,String user_name, String clientEmail, String clintToken, String personalPhotoPath,String lat,String lng,String license_no) {
-        editor.putBoolean(LocalSession.isProfileCreated, isProfileCreated);
-        editor.putString(LocalSession.pharmacyName,pharmacyName);
-        editor.putString(LocalSession.clientEmail,clientEmail);
-        editor.putString(LocalSession.token, clintToken);
-        editor.putString(LocalSession.pharmacyPhone, phone);
-        editor.putString(LocalSession.personalPhotoPath, personalPhotoPath);
-        editor.putString(LocalSession.lat, lat);
-        editor.putString(LocalSession.lng, lng);
-        editor.putString(LocalSession.user_name, user_name);
-        editor.putString(LocalSession.license_no, license_no);
+        editor.putString(LocalSession.SALOON_LOGO_FULL_PATH, saloon_logo_full_path);
         editor.apply();
         editor.commit();
     }
 
-    public void saveOrderId(Boolean isIdSaved,String orderId){
-        editor.putBoolean(isLastOrderIdSaved,isIdSaved);
-        editor.putString(orderId,orderId);
-    }
 
-    public int getOrderStatus() {
-        return mPreferences.getInt(ORDER_STATUS, 4);
-    }
 
-    public void setOrderStatus(int value) {
-        editor.putInt(ORDER_STATUS, value);
-        editor.apply();
-        //	editor.commit();
-    }
-    public static String getOrderId() {
-        return mPreferences.getString(orderId,"");
-    }
 
     public static void setDeviceId(String deviceId) {
         editor.putString("DEVICE_ID", deviceId);
         editor.commit();
     }
 
-    public static String getDeviceId() {
-        return mPreferences.getString("DEVICE_ID", null);
-    }
-    public void saveFcm(Boolean isFcmSaved,String token){
-        editor.putBoolean(LocalSession.isFcmSaved,isFcmSaved);
-        editor.putString(LocalSession.fcmToken,token);
-        editor.apply();
-        editor.commit();
-    }
 
 
-    public static String getFcmToken() {
-        return mPreferences.getString(fcmToken,"");
+
+
+    public static String getSaloonLogoFullPath() {
+        return mPreferences.getString(SALOON_LOGO_FULL_PATH,"");
     }
 
-    public static String getPharmacyStatus() {
-        return mPreferences.getString(pharmacyStatus,"");
-    }
-
-    public static String getLicense_no() {
-        return mPreferences.getString(license_no,"");
+    public static String getRegstrationImageFullPath() {
+        return mPreferences.getString(REGSTRATION_IMAGE_FULL_PATH,"");
     }
 
     public static String getLat() {
@@ -121,9 +74,6 @@ public class LocalSession {
         return mPreferences.getString(user_name,"");
     }
 
-    public static String getPersonalPhotoPath() {
-        return mPreferences.getString(personalPhotoPath,"");
-    }
 
     public LocalSession(Context context) {
         mPreferences = context.getSharedPreferences(PREF_NAME, 0);
@@ -131,11 +81,11 @@ public class LocalSession {
         editor = mPreferences.edit();
     }
 
-    public LocalSession(Context context, String token) {
+    public LocalSession(Context context, String PHOTO_ID_FULL_PATH) {
         mPreferences = context.getSharedPreferences(PREF_NAME, 0);
 
         editor = mPreferences.edit();
-        setToken(token);
+        setPhotoIdFullPath(PHOTO_ID_FULL_PATH);
     }
     public Boolean getIsSessionCreated() {
         return mPreferences.getBoolean(LocalSession.isSessionCreated, false);
@@ -144,34 +94,31 @@ public class LocalSession {
         return mPreferences;
     }
 
-    public static String getPharmacyPhone() {
-        return mPreferences.getString(pharmacyPhone,"");
+    public static String getPhone() {
+        return mPreferences.getString(PHONE,"");
     }
 
 
-    public static String getIsProfileCreated() {
-        return isProfileCreated;
+
+    public static String getId() {
+        return mPreferences.getString(ID,"");
     }
 
-    public static String getPharmacyId() {
-        return mPreferences.getString(pharmacyId,"");
-    }
-
-    public static String getPharmacyName() {
-        return mPreferences.getString(pharmacyName,"");
+    public static String getName() {
+        return mPreferences.getString(NAME,"");
     }
 
     public static String getClientEmail() {
         return mPreferences.getString(clientEmail,"");
     }
 
-    public static String getToken() {
-        return mPreferences.getString(token,"");
+    public static String getPhotoIdFullPath() {
+        return mPreferences.getString(PHOTO_ID_FULL_PATH,"");
     }
 
 
-    public static void setToken(String token1) {
-        editor.putString(token,token1);
+    public static void setPhotoIdFullPath(String token1) {
+        editor.putString(PHOTO_ID_FULL_PATH,token1);
         editor.commit();
         editor.apply();
     }

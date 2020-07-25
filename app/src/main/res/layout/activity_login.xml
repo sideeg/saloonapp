@@ -14,11 +14,11 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="160dp"
         android:layout_marginTop="100dp"
 
-        android:src="@drawable/ic_saloon_icon"
+        android:src="@drawable/ic_white_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -50,12 +50,16 @@
             android:layout_width="@dimen/login_username_width"
             android:layout_height="@dimen/login_username_height"
             android:padding="15dp"
+            android:drawablePadding="15dp"
             android:layout_marginTop="20dp"
             android:layout_marginStart="60dp"
             android:layout_marginEnd="60dp"
-            android:hint="email"
+            android:hint="name"
+            android:textColorHint="@color/textcolor"
             android:maxLines="1"
             android:textSize="@dimen/login_email_text_size"
+            android:inputType="textPersonName"
+            android:textColor="@color/textcolor"
             android:layout_gravity="center"
             android:drawableLeft="@drawable/ic_email"
             />
@@ -66,7 +70,10 @@
             android:layout_width="@dimen/login_password_width"
             android:layout_height="@dimen/login_password_height"
             android:hint="password"
+            android:textColorHint="@color/textcolor"
+            android:drawablePadding="15dp"
             android:maxLines="1"
+            android:textColor="@color/white"
             android:inputType="textPassword"
             android:layout_marginEnd="60dp"
             android:layout_marginStart="60dp"
@@ -90,6 +97,7 @@
             android:text="login"
             android:textColor="@color/colorblack"
             android:textSize="20dp"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.493"
             app:layout_constraintStart_toStartOf="parent"

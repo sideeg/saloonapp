@@ -6,11 +6,11 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
+import androidx.multidex.MultiDex;
+
 
 import com.sideeg.saloonapp.utility.LocalSession;
 
-
-import androidx.multidex.MultiDex;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,7 +42,7 @@ public class MyApplication extends Application {
         }
 
 //        saveToken();
-     }
+    }
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -58,18 +58,9 @@ public class MyApplication extends Application {
         return instance;
     }
 
-    public static boolean hasNetwork(){
-        return instance.isNetworkConnected();
-    }
 
-    private boolean isNetworkConnected(){
-        ConnectivityManager cm =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        return activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();
-    }
+
 
 
 
