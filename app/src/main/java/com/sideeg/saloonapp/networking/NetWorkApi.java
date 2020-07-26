@@ -2,8 +2,10 @@ package com.sideeg.saloonapp.networking;
 
 import com.sideeg.saloonapp.models.LoginResponse;
 import com.sideeg.saloonapp.models.RegisterResponse;
+import com.sideeg.saloonapp.models.SaloonServiceResponse;
 
 import okhttp3.MultipartBody;
+import okhttp3.Response;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -18,9 +20,20 @@ public interface NetWorkApi {
 
 
     @FormUrlEncoded
+    @POST("saloons/saloonservices")
+    Call<Response> addServiceToSaloon(@Field("saloon_id") String saloon_id,
+                                      @Field("service_id") String service_id,
+                                      @Field("price") String price,
+                                      @Field("worker_name") String worker_name);
+
+
+    @GET("saloonservices")
+    Call<SaloonServiceResponse> getSaloonService();
+
+    @FormUrlEncoded
     @POST("saloons/login")
-    Call<LoginResponse> pharmacyLogin(@Field("name") String name,
-                                      @Field("password") String password
+    Call<LoginResponse> saloonLogin(@Field("name") String name,
+                                    @Field("password") String password
     );
 
     @Multipart
@@ -37,6 +50,8 @@ public interface NetWorkApi {
                                                 @Part MultipartBody.Part saloon_logo,
                                                 @Part MultipartBody.Part photo_id
     );
+
+
 
 
  }

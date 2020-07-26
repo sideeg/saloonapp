@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 
 import com.sideeg.saloonapp.R;
 import com.sideeg.saloonapp.models.LoginResponse;
@@ -52,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         loading.setCanceledOnTouchOutside(false);
         mLocalSession=new LocalSession(getApplicationContext());
         NetWorkApi api = ApiClient.getClient(ApiClient.BASE_URL).create(NetWorkApi.class);
-        Call<LoginResponse> loginCall = api.pharmacyLogin(edtUserName.getText().toString(),edtUserPassword.getText().toString());
+        Call<LoginResponse> loginCall = api.saloonLogin(edtUserName.getText().toString(),edtUserPassword.getText().toString());
         loginCall.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {

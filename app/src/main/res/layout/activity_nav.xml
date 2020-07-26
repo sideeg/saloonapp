@@ -16,18 +16,18 @@
         android:layout_height="match_parent"
         android:background="#D8FFFFFF"/>
     <include layout="@layout/app_bar_nav"/>
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@color/white"
-        app:itemTextColor="@color/textcolor"
-        android:fitsSystemWindows="true"
-        app:itemBackground="@drawable/selecter"
+<!--    <com.google.android.material.navigation.NavigationView-->
+<!--        android:id="@+id/nav_view"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_gravity="start"-->
+<!--        android:background="@color/white"-->
+<!--        app:itemTextColor="@color/textcolor"-->
+<!--        android:fitsSystemWindows="true"-->
+<!--        app:itemBackground="@drawable/selecter"-->
 
-        app:headerLayout="@layout/nav_header_nav"
-        app:menu="@menu/activity_nav_drawer" />
+<!--        app:headerLayout="@layout/nav_header_nav"-->
+<!--        app:menu="@menu/activity_nav_drawer" />-->
 
 
 </androidx.drawerlayout.widget.DrawerLayout>

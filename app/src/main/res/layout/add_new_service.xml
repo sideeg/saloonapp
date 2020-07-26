@@ -33,6 +33,7 @@
         android:textSize="20dp"
         android:text = "Worker Name : "/>
     <EditText
+        android:id="@+id/tv_worker_name"
         android:layout_marginStart="5dp"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
@@ -54,6 +55,7 @@
             android:textSize="20dp"
             android:text = "Service price : "/>
     <EditText
+        android:id="@+id/tv_price"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
 

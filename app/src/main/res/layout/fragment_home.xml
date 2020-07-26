@@ -7,6 +7,8 @@
     >
 
 <androidx.recyclerview.widget.RecyclerView
+    android:layout_marginTop="50dp"
+    android:id="@+id/service_recycler_view"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"/>
 
@@ -16,7 +18,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        app:backgroundTint="@color/dark_gray"
+        app:srcCompat="@drawable/ic_add_white_24dp"
+         />
 
 
 
