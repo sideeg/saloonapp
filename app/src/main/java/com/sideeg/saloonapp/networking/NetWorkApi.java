@@ -39,11 +39,10 @@ public interface NetWorkApi {
 
     @Multipart
     @POST("saloons/register")
-    Call<LoginResponse> registrationPharmacy(
+    Call<LoginResponse> registerSaloon(
                                                 @Part("user_phone") String phone,
                                                 @Part("user_name") String user_name,
                                                 @Part("user_email") String email,
-                                                @Part("license_no") String license_no,
                                                 @Part("password") String password,
                                                 @Part("lat") double lat,
                                                 @Part("lang") double lang,

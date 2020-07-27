@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login() {
-        ProgressDialog loading = Utility.GetProcessDialog(this);
+        ProgressDialog loading =  ProgressDialog.show(this, getString(R.string.loading), getString(R.string.wait), false, false);
         loading.setCancelable(false);
         loading.setCanceledOnTouchOutside(false);
         mLocalSession=new LocalSession(getApplicationContext());

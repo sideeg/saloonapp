@@ -40,11 +40,11 @@ public final class RuntimePermissionHelper {
 
     private void initPermissions() {
         requiredPermissions = new ArrayList<>();
-        requiredPermissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
+//        requiredPermissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
         requiredPermissions.add(Manifest.permission.CAMERA);
         requiredPermissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
         requiredPermissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        requiredPermissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+//        requiredPermissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
         //Add all the required permission in the list
     }
 

@@ -63,11 +63,12 @@
         android:hint="your phone"
         android:maxLines="1"
         android:textSize="@dimen/login_email_text_size"
+            android:inputType="phone"
         android:layout_gravity="center"
         android:drawableLeft="@drawable/ic_phone"
         />
         <EditText
-        android:id="@+id/edtUserName"
+        android:id="@+id/edtUserEmail"
         android:layout_width="@dimen/login_username_width"
         android:layout_height="@dimen/login_username_height"
         android:padding="15dp"
@@ -78,13 +79,14 @@
         android:hint="add email"
         android:maxLines="1"
         android:textSize="@dimen/login_email_text_size"
+            android:inputType="textEmailAddress"
         android:layout_gravity="center"
         android:drawableLeft="@drawable/ic_email"
         />
 
     <EditText
         app:boxBackgroundMode="none"
-        android:id="@+id/edtUserPassword"
+        android:id="@+id/regUserPassword"
         android:layout_width="@dimen/login_password_width"
         android:layout_height="@dimen/login_password_height"
         android:hint="password"
@@ -95,6 +97,7 @@
         android:layout_marginStart="60dp"
         android:layout_marginTop="10dp"
         android:textSize="@dimen/login_password_text_size"
+
         android:layout_gravity="center"
         android:drawableLeft="@drawable/ic_lock_outline"
         android:padding="10dp" />
@@ -236,7 +239,7 @@
 
 
         <ImageView
-            android:id="@+id/ivUserroshitaPic"
+            android:id="@+id/ivIdentityCard_Pic"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center_horizontal"

@@ -105,6 +105,8 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
                 return true;
             case R.id.log_out:
                 new LocalSession(getApplicationContext()).clearSession();
+                startActivity(new Intent(this,SplashActivity.class));
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -84,6 +84,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
             spin.setAdapter(aa);
 
             dialog.findViewById(R.id.cancel_button).setOnClickListener(v -> dialog.dismiss());
+            dialog.findViewById(R.id.add_button).setOnClickListener(v -> addSaloonService());
             dialog.show();
         });
 
@@ -94,7 +95,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
     }
 
     private void getSaloonService() {
-        ProgressDialog loading = Utility.GetProcessDialog(getActivity());
+        ProgressDialog loading =  ProgressDialog.show(getContext(), getString(R.string.loading), getString(R.string.wait), false, false);
         loading.setCancelable(false);
         loading.setCanceledOnTouchOutside(false);
         mLocalSession=new LocalSession(getContext());
@@ -197,4 +198,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
     public void onNothingSelected(AdapterView<?> arg0) {
         // TODO Auto-generated method stub
     }
+
+
+
 }
