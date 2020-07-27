@@ -42,7 +42,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        if (saloonServiceData.get(position).getId().equals(LocalSession.getId())){
+
             if (saloonServiceData.get(position).getServices() != null) {
                 Glide.with(mContext)
                         .load(saloonServiceData.get(position).getServices().getPhoto_full_path())
@@ -51,7 +51,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
                         .into(holder.imageView);
                 holder.serviceName.setText(saloonServiceData.get(position).getServices().getService_name());
                 holder.servicePrice.setText(saloonServiceData.get(position).getPrice() + " SDG");
-            }
+
         }
     }
 

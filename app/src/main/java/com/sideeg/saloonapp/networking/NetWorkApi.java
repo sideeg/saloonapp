@@ -1,5 +1,6 @@
 package com.sideeg.saloonapp.networking;
 
+import com.sideeg.saloonapp.models.BaseResponse;
 import com.sideeg.saloonapp.models.LoginResponse;
 import com.sideeg.saloonapp.models.RegisterResponse;
 import com.sideeg.saloonapp.models.SaloonServiceResponse;
@@ -20,11 +21,11 @@ public interface NetWorkApi {
 
 
     @FormUrlEncoded
-    @POST("saloons/saloonservices")
-    Call<Response> addServiceToSaloon(@Field("saloon_id") String saloon_id,
-                                      @Field("service_id") String service_id,
-                                      @Field("price") String price,
-                                      @Field("worker_name") String worker_name);
+    @POST("saloonservices")
+    Call<BaseResponse> addServiceToSaloon(@Field("saloon_id") String saloon_id,
+                                          @Field("service_id") String service_id,
+                                          @Field("price") String price,
+                                          @Field("worker_name") String worker_name);
 
 
     @GET("saloonservices")
