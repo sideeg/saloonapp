@@ -10,7 +10,7 @@ public class Service {
     @SerializedName("service")
     private String service_name;
 
-    @SerializedName("photo_full_path")
+    @SerializedName("service_photo_full_path")
     private String photo_full_path;
 
     @SerializedName("worker_name")

@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.sideeg.saloonapp.R;
 import com.sideeg.saloonapp.models.SaloonServiceData;
+import com.sideeg.saloonapp.networking.ApiClient;
 import com.sideeg.saloonapp.utility.LocalSession;
 
 import java.util.List;
@@ -44,8 +45,9 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
 
 
             if (saloonServiceData.get(position).getServices() != null) {
+                String image_url = ApiClient.URL +saloonServiceData.get(position).getServices().getPhoto_full_path();
                 Glide.with(mContext)
-                        .load(saloonServiceData.get(position).getServices().getPhoto_full_path())
+                        .load(image_url)
                         .dontAnimate()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(holder.imageView);

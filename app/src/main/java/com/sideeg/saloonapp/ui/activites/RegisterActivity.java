@@ -177,7 +177,6 @@ public class RegisterActivity extends AppCompatActivity implements ProgressReque
                 switch (SELECTED_IMAGE_TYPE) {
                     case R.id.iv_saloon_logo_Pic:
                         imagesUriMap.put(R.id.iv_saloon_logo_Pic, uri);
-////                        Picasso.get().load(data.getData()).fit().error(R.drawable.add_image).into(ivroshitaPic);
                         saloonLogoIV.setImageURI(uri);
                         String[] filePathColumn = { MediaStore.Images.Media.DATA };
                         cursor = getContentResolver().query(uri,

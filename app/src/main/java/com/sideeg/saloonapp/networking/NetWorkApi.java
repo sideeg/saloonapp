@@ -4,6 +4,7 @@ import com.sideeg.saloonapp.models.BaseResponse;
 import com.sideeg.saloonapp.models.LoginResponse;
 import com.sideeg.saloonapp.models.RegisterResponse;
 import com.sideeg.saloonapp.models.SaloonServiceResponse;
+import com.sideeg.saloonapp.models.getAllServiceResponse;
 
 import okhttp3.MultipartBody;
 import okhttp3.Response;
@@ -30,6 +31,9 @@ public interface NetWorkApi {
 
     @GET("saloonservices")
     Call<SaloonServiceResponse> getSaloonService();
+
+    @GET("services")
+    Call<getAllServiceResponse> getAllService();
 
     @FormUrlEncoded
     @POST("saloons/login")

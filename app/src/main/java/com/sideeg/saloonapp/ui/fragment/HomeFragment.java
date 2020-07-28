@@ -20,6 +20,7 @@ import com.sideeg.saloonapp.models.BaseResponse;
 import com.sideeg.saloonapp.models.SaloonServiceData;
 import com.sideeg.saloonapp.models.SaloonServiceResponse;
 import com.sideeg.saloonapp.models.Service;
+import com.sideeg.saloonapp.models.getAllServiceResponse;
 import com.sideeg.saloonapp.networking.ApiClient;
 import com.sideeg.saloonapp.networking.NetWorkApi;
 import com.sideeg.saloonapp.ui.ServiceAdapter;
@@ -52,8 +53,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-        tv_price = rootView.findViewById(R.id.tv_price);
-        tv_wroker_name = rootView.findViewById(R.id.tv_worker_name);
+
         ServiceRecyclerView = rootView.findViewById(R.id.service_recycler_view);
 
         servicesList = new ArrayList<>();
@@ -70,18 +70,13 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
             dialog.setCancelable(true);
             dialog.setCanceledOnTouchOutside(false);
 
-            Spinner spin =  dialog.findViewById(R.id.service_spinner);
-            spin.setOnItemSelectedListener(this);
-            String[] temp = new String[servicesList.size()];
-            int i = 0;
-            for (Service service: servicesList)
-                if (service != null)
-                    temp[i++] = service.getService_name();
-            //Creating the ArrayAdapter instance having the country list
-            ArrayAdapter aa = new ArrayAdapter(getContext(),android.R.layout.simple_spinner_item,temp);
-            aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            //Setting the ArrayAdapter data on the Spinner
-            spin.setAdapter(aa);
+
+
+            tv_price = dialog.findViewById(R.id.tv_price);
+            tv_wroker_name = dialog.findViewById(R.id.tv_worker_name);
+
+            getAllService();
+
 
             dialog.findViewById(R.id.cancel_button).setOnClickListener(v -> dialog.dismiss());
             dialog.findViewById(R.id.add_button).setOnClickListener(v -> addSaloonService());
@@ -115,7 +110,6 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                         loading.dismiss();
                         filterd_Saloon_Service_List = new ArrayList<>();
                         for (SaloonServiceData saloonServiceData : response.body().getData()) {
-                            servicesList.add(saloonServiceData.getServices());
                             if (saloonServiceData.getSaloon_id().equals(LocalSession.getId()))
                                 filterd_Saloon_Service_List.add(saloonServiceData);
                         }
@@ -137,6 +131,61 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
 
             @Override
             public void onFailure(Call<SaloonServiceResponse> call, Throwable t) {
+                Utility.showAlertDialog(getString(R.string.error), t.getMessage(), getContext());
+                Utility.printLog(TAG, t.getMessage());
+                loading.dismiss();
+
+            }
+        });
+    }
+ private void getAllService() {
+        ProgressDialog loading =  ProgressDialog.show(getContext(), getString(R.string.loading), getString(R.string.wait), false, false);
+        loading.setCancelable(false);
+        loading.setCanceledOnTouchOutside(false);
+        mLocalSession=new LocalSession(getContext());
+        NetWorkApi api = ApiClient.getClient(ApiClient.BASE_URL).create(NetWorkApi.class);
+        Call<getAllServiceResponse> loginCall = api.getAllService();
+        loginCall.enqueue(new Callback<getAllServiceResponse>() {
+            @Override
+            public void onResponse(Call<getAllServiceResponse> call, Response<getAllServiceResponse> response) {
+                if (response.isSuccessful()) {
+                    if (response.body().isError()) {
+                        loading.dismiss();
+
+                        Utility.showAlertDialog(getString(R.string.error), response.body().getMessage(), getContext());
+
+                    } else {
+                        Log.i(TAG, "token: " +  response.body().getData().toString());
+                        loading.dismiss();
+                        filterd_Saloon_Service_List = new ArrayList<>();
+                        servicesList = response.body().getData() ;
+
+
+                        Spinner spin =  dialog.findViewById(R.id.service_spinner);
+                        spin.setOnItemSelectedListener(HomeFragment.this);
+                        String[] temp = new String[servicesList.size()];
+                        int i = 0;
+                        for (Service service: servicesList)
+                            if (service != null)
+                                temp[i++] = service.getService_name();
+                        //Creating the ArrayAdapter instance having the country list
+                        ArrayAdapter aa = new ArrayAdapter(getContext(),android.R.layout.simple_spinner_item,temp);
+                        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        //Setting the ArrayAdapter data on the Spinner
+                        spin.setAdapter(aa);
+
+
+                    }
+                } else {
+                    Log.i(TAG, response.errorBody().toString());
+                    loading.dismiss();
+                    Utility.showAlertDialog(getString(R.string.error), getString(R.string.servererror), getContext());
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<getAllServiceResponse> call, Throwable t) {
                 Utility.showAlertDialog(getString(R.string.error), t.getMessage(), getContext());
                 Utility.printLog(TAG, t.getMessage());
                 loading.dismiss();
@@ -167,6 +216,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
 
                         loading.dismiss();
                         dialog.dismiss();
+                        getSaloonService();
 
                     }
                 } else {
@@ -192,7 +242,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
     @Override
     public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
         selectedServiceId = servicesList.get(position).getId();
-        Toast.makeText(getContext(),servicesList.get(position).getService_name() , Toast.LENGTH_LONG).show();
+     //   Toast.makeText(getContext(),servicesList.get(position).getService_name() , Toast.LENGTH_LONG).show();
     }
     @Override
     public void onNothingSelected(AdapterView<?> arg0) {
