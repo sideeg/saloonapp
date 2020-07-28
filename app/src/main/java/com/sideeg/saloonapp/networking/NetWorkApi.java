@@ -44,8 +44,8 @@ public interface NetWorkApi {
                                                 @Part("user_name") String user_name,
                                                 @Part("user_email") String email,
                                                 @Part("password") String password,
-                                                @Part("lat") double lat,
-                                                @Part("lang") double lang,
+                                                @Part("lat") String lat,
+                                                @Part("lang") String lang,
                                                 @Part MultipartBody.Part commerical_regstration_image,
                                                 @Part MultipartBody.Part saloon_logo,
                                                 @Part MultipartBody.Part photo_id

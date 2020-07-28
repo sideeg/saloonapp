@@ -1,6 +1,7 @@
 package com.sideeg.saloonapp.ui.activites;
 
 import androidx.appcompat.app.AppCompatActivity;
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,6 +29,7 @@ import com.sideeg.saloonapp.models.LoginResponse;
 import com.sideeg.saloonapp.networking.ApiClient;
 import com.sideeg.saloonapp.networking.NetWorkApi;
 import com.sideeg.saloonapp.utility.LocalSession;
+import com.sideeg.saloonapp.utility.ProgressRequestBody;
 import com.sideeg.saloonapp.utility.RuntimePermissionHelper;
 import com.sideeg.saloonapp.utility.Utility;
 
@@ -36,7 +38,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity implements ProgressRequestBody.UploadCallbacks {
 
     private String TAG = "RegisterActivity";
 
@@ -78,7 +80,7 @@ public class RegisterActivity extends AppCompatActivity {
         commericalRegisterIV = findViewById(R.id.ivcommerical_register_Pic);
         IdentityCardIV = findViewById(R.id.ivIdentityCard_Pic);
         Button register = findViewById(R.id.btnregister);
-        register.setOnClickListener(e -> valdiateData());
+        register.setOnClickListener(e -> sendToServer());
 
         views = new ArrayList<>();
         views.add(userName);
@@ -137,7 +139,9 @@ public class RegisterActivity extends AppCompatActivity {
         intent.setType("image/*");
         startActivityForResult(intent,GalaryCode);
     }
-    String picturePath;
+    String saloonlogopicturePath;
+    String commericalpicturePath;
+    String idpicturePath;
 
 
     @Override
@@ -181,7 +185,7 @@ public class RegisterActivity extends AppCompatActivity {
                         cursor.moveToFirst();
 
                         int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                        picturePath = cursor.getString(columnIndex);
+                        saloonlogopicturePath = cursor.getString(columnIndex);
                         cursor.close();
                         break;
                     case R.id.ivcommerical_register_Pic:
@@ -196,7 +200,7 @@ public class RegisterActivity extends AppCompatActivity {
                         cursor.moveToFirst();
 
                         int columnIndex2 = cursor.getColumnIndex(filePathColumn2[0]);
-                        picturePath = cursor.getString(columnIndex2);
+                        commericalpicturePath = cursor.getString(columnIndex2);
                         cursor.close();
 
                         break;
@@ -213,7 +217,7 @@ public class RegisterActivity extends AppCompatActivity {
                         cursor.moveToFirst();
 
                         int columnIndex3 = cursor.getColumnIndex(filePathColumn3[0]);
-                        picturePath = cursor.getString(columnIndex3);
+                        idpicturePath = cursor.getString(columnIndex3);
                         cursor.close();
 
                         break;
@@ -242,14 +246,24 @@ public class RegisterActivity extends AppCompatActivity {
 
 
 
-    private void login() {
+    private void sendToServer() {
+        if (!valdiateData()){
+            return;
+        }
         ProgressDialog loading =  ProgressDialog.show(this, getString(R.string.loading), getString(R.string.wait), false, false);
         loading.setCancelable(false);
         loading.setCanceledOnTouchOutside(false);
+        File saloonLogoFile = new File(saloonlogopicturePath);
+        File commericalFile = new File(commericalpicturePath);
+        File idFile = new File(idpicturePath);
+
         mLocalSession=new LocalSession(getApplicationContext());
         NetWorkApi api = ApiClient.getClient(ApiClient.BASE_URL).create(NetWorkApi.class);
         Call<LoginResponse> loginCall = api.registerSaloon(userPhone.getText().toString(),userName.getText().toString(),userEmail.getText().toString(),userPassword.getText().toString()
-        ,"23","43",);
+        ,"23","43", MultipartBody.Part.createFormData("commerical_regstration_image", "commerical_regstration_image", new ProgressRequestBody(commericalFile, "image", this))
+        ,MultipartBody.Part.createFormData("saloon_logo", "saloon_logo", new ProgressRequestBody(saloonLogoFile, "image", this))
+        ,MultipartBody.Part.createFormData("photo_id", "photo_id", new ProgressRequestBody(idFile, "image", this)));
+
         loginCall.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
@@ -294,4 +308,18 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onProgressUpdate(File mFile, int percentage) {
+
+    }
+
+    @Override
+    public void onError() {
+
+    }
+
+    @Override
+    public void onFinish() {
+
+    }
 }
