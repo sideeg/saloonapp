@@ -12,6 +12,9 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -123,7 +126,7 @@ public class RegisterActivity extends AppCompatActivity implements ProgressReque
 
         Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         File f = new File(Environment.getExternalStorageDirectory(), "POST_IMAGE.jpg");
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+       // cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
         imageToUploadUri = Uri.fromFile(f);
         if (RuntimePermissionHelper.getInstance(this).isPermissionAvailable(Manifest.permission.CAMERA))
             startActivityForResult(cameraIntent, CAMERA_REQUEST);
@@ -157,7 +160,19 @@ public class RegisterActivity extends AppCompatActivity implements ProgressReque
                     switch (SELECTED_IMAGE_TYPE) {
                         case R.id.ivcommerical_register_Pic:
                             imagesUriMap.put(R.id.ivcommerical_register_Pic, uri);
+
+//                                Bitmap myImg = BitmapFactory.decodeFile(uri.getPath());
+//                                Matrix matrix = new Matrix();
+//                                matrix.postRotate(90);
+//                                Bitmap rotated = Bitmap.createBitmap(myImg, 0, 0, myImg.getWidth(), myImg.getHeight(),
+//                                        matrix, true);
+//
+//                            commericalRegisterIV.setImageBitmap(rotated);
+//                            commericalRegisterIV.invalidate();
+
+                            commericalRegisterIV.setImageURI(null);
                             commericalRegisterIV.setImageURI(uri);
+                            commericalRegisterIV.invalidate();
                             break;
                         case R.id.ivIdentityCard_Pic:
                             imagesUriMap.put(R.id.ivIdentityCard_Pic, uri);
