@@ -159,26 +159,20 @@ public class RegisterActivity extends AppCompatActivity implements ProgressReque
                     Uri uri = Uri.parse(imageToUploadUri.getPath());
                     switch (SELECTED_IMAGE_TYPE) {
                         case R.id.ivcommerical_register_Pic:
+                            commericalpicturePath = uri.getPath();
                             imagesUriMap.put(R.id.ivcommerical_register_Pic, uri);
-
-//                                Bitmap myImg = BitmapFactory.decodeFile(uri.getPath());
-//                                Matrix matrix = new Matrix();
-//                                matrix.postRotate(90);
-//                                Bitmap rotated = Bitmap.createBitmap(myImg, 0, 0, myImg.getWidth(), myImg.getHeight(),
-//                                        matrix, true);
-//
-//                            commericalRegisterIV.setImageBitmap(rotated);
-//                            commericalRegisterIV.invalidate();
-
-                            commericalRegisterIV.setImageURI(null);
                             commericalRegisterIV.setImageURI(uri);
-                            commericalRegisterIV.invalidate();
+
+//                            commericalRegisterIV.setImageURI(uri);
+//                            commericalRegisterIV.invalidate();
                             break;
                         case R.id.ivIdentityCard_Pic:
+                            idpicturePath = uri.getPath();
                             imagesUriMap.put(R.id.ivIdentityCard_Pic, uri);
                             IdentityCardIV.setImageURI(uri);
                             break;
                         case R.id.iv_saloon_logo_Pic:
+                            saloonlogopicturePath = uri.getPath();
                             imagesUriMap.put(R.id.iv_saloon_logo_Pic, uri);
                             saloonLogoIV.setImageURI(uri);
                             break;

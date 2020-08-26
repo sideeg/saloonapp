@@ -42,7 +42,7 @@ public class Utility {
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.setCancelable(false);
         // show it
-        alertDialog.show();
+       // alertDialog.show();
 
     }
 

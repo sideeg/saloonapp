@@ -44,9 +44,9 @@ public interface NetWorkApi {
     @Multipart
     @POST("saloons/register")
     Call<LoginResponse> registerSaloon(
-                                                @Part("user_phone") String phone,
-                                                @Part("user_name") String user_name,
-                                                @Part("user_email") String email,
+                                                @Part("phone") String phone,
+                                                @Part("name") String user_name,
+                                                @Part("email") String email,
                                                 @Part("password") String password,
                                                 @Part("lat") String lat,
                                                 @Part("lang") String lang,

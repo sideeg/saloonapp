@@ -79,7 +79,12 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
 
 
             dialog.findViewById(R.id.cancel_button).setOnClickListener(v -> dialog.dismiss());
-            dialog.findViewById(R.id.add_button).setOnClickListener(v -> addSaloonService());
+            dialog.findViewById(R.id.add_button).setOnClickListener(v -> {
+                addSaloonService();
+                if (dialog.isShowing())
+                    dialog.dismiss();
+                    }
+            );
             dialog.show();
         });
 
